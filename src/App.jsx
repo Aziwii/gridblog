@@ -22,18 +22,17 @@ export default class App extends React.Component {
       // Add some initial posts object so the page starts with content.
       // Use the post format described in the assignment.
       posts: [
-        // Example shape:
-        // {
-        //   id: makeId(),
-        //   title: "Welcome to GridBlog",
-        //   author: "Instructor",
-        //   content:
-        //     "This mini blog is built with React class-based state. ",
-        //   createdAt: todayString(),
-        //   imageDataUrl: "",
-        //   likes: 2,
-        //   dislikes: 0,
-        // },      
+        {
+          id: makeId(),
+          title: "Welcome to GridBlog",
+          author: "Instructor",
+          content:
+            "This mini blog is built with React class-based state. ",
+          createdAt: todayString(),
+          imageDataUrl: "",
+          likes: 2,
+          dislikes: 0,
+        },      
   ],
       form: {
         title: "",
@@ -137,6 +136,11 @@ export default class App extends React.Component {
   // TODO (App.jsx):
   // Add dislikePost = (id) => { ... } using the same pattern as likePost.
   // It should increase dislikes by 1 for only the matching post.
+  dislikePost = (id) => {
+    this.setState((prev) => ({
+      posts: prev.posts.map((p) => (p.id === id ? {...p, likes: p.likes - 1} : p)),
+    }))
+  }
 
   render() {
     const { posts, form, error } = this.state;
@@ -151,6 +155,7 @@ export default class App extends React.Component {
             Render the header like this:
             <Header totalPosts={posts.length} totalLikes= __?__ totalDislikes=__?__/>
         */}
+        <Header totalPosts={posts.length} totalLikes={0} totalDislikes={0}/>
 
         <div className="layout">
           <aside className="panel" id="about">
@@ -183,7 +188,10 @@ export default class App extends React.Component {
             {/* TODO (App.jsx):
                 Render the PostGrid like this:
                 <PostGrid posts=__?__ onLike=__?__ onDislike={this.dislikePost} />
+                find out what the posts{} is for
             */}
+            
+            <PostGrid posts={0} onLike={this.likePost} onDislike={this.dislikePost} />
           </main>
         </div>
       </div>
