@@ -9,5 +9,12 @@ Requirements:
 
 export default function Header({ totalPosts, totalLikes, totalDislikes }) {
   // TODO: Replace return null with your JSX
-  return null;
+
+  return (
+    <header>
+      <h1>Posts Dashboard</h1>
+      <p>With {totalPosts} total posts, you have a combined number of {totalLikes} likes
+        and {totalDislikes} dislikes.</p>
+    </header>
+  );
 }

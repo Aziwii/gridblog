@@ -14,8 +14,9 @@ function todayString() {
 }
 
 export default class App extends React.Component {
+  //constructor sets up the state and intitializes the component
   constructor(props) {
-    super(props);
+    super(props); //inits this.
 
     this.state = {
       // TODO (App.jsx):
@@ -32,7 +33,18 @@ export default class App extends React.Component {
           imageDataUrl: "",
           likes: 2,
           dislikes: 0,
-        },      
+        },  
+        {
+          id: makeId(),
+          title: "Second post",
+          author: "Instructor",
+          content:
+            "this is testing to see if i did this correctly ",
+          createdAt: todayString(),
+          imageDataUrl: "",
+          likes: 0,
+          dislikes: 0,
+        },    
   ],
       form: {
         title: "",
@@ -45,7 +57,9 @@ export default class App extends React.Component {
   }
 
   // Controlled inputs: when user types, update this.state.form
+  //hendling the event change 
   handleChange = (e) => {
+    
     const { name, value } = e.target;
     this.setState((prev) => ({
       form: { ...prev.form, [name]: value },
@@ -136,9 +150,9 @@ export default class App extends React.Component {
   // TODO (App.jsx):
   // Add dislikePost = (id) => { ... } using the same pattern as likePost.
   // It should increase dislikes by 1 for only the matching post.
-  dislikePost = (id) => {
-    this.setState((prev) => ({
-      posts: prev.posts.map((p) => (p.id === id ? {...p, likes: p.likes - 1} : p)),
+  dislikePost = (id) => {//arrow functions inherit (this), id is the post we disliked
+    this.setState((prev) => ({ //prev current state before update (latest state)
+      posts: prev.posts.map((p) => (p.id === id ? {...p, dislikes: p.dislikes + 1} : p)),
     }))
   }
 
@@ -155,7 +169,7 @@ export default class App extends React.Component {
             Render the header like this:
             <Header totalPosts={posts.length} totalLikes= __?__ totalDislikes=__?__/>
         */}
-        <Header totalPosts={posts.length} totalLikes={0} totalDislikes={0}/>
+        <Header totalPosts={posts.length} totalLikes={totalLikes} totalDislikes={totalDislikes}/>
 
         <div className="layout">
           <aside className="panel" id="about">
@@ -188,10 +202,9 @@ export default class App extends React.Component {
             {/* TODO (App.jsx):
                 Render the PostGrid like this:
                 <PostGrid posts=__?__ onLike=__?__ onDislike={this.dislikePost} />
-                find out what the posts{} is for
             */}
             
-            <PostGrid posts={0} onLike={this.likePost} onDislike={this.dislikePost} />
+            <PostGrid posts={posts} onLike={this.likePost} onDislike={this.dislikePost} />
           </main>
         </div>
       </div>
